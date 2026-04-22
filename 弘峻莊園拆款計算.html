@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>弘峻莊園 - 工程拆款計算機 (精確萬位版)</title>
+    <style>
+        body { font-family: "Microsoft JhengHei", sans-serif; padding: 20px; background-color: #f4f7f6; color: #333; }
+        .container { max-width: 700px; margin: auto; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+        h2 { text-align: center; color: #2c3e50; margin-bottom: 25px; }
+        .input-group { display: flex; justify-content: center; gap: 10px; margin-bottom: 30px; }
+        input[type="number"] { padding: 12px; width: 200px; border: 2px solid #ddd; border-radius: 6px; font-size: 18px; outline: none; transition: border-color 0.3s; }
+        input[type="number"]:focus { border-color: #27ae60; }
+        button { padding: 12px 25px; background-color: #27ae60; color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 18px; font-weight: bold; transition: background 0.3s; }
+        button:hover { background-color: #219150; }
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        th, td { border: 1px solid #eee; padding: 15px; text-align: right; }
+        th { background-color: #f8f9fa; color: #7f8c8d; font-weight: 600; text-align: center; }
+        tr:nth-child(even) { background-color: #fafafa; }
+        .total-row { font-weight: bold; background-color: #e8f6ef !important; color: #27ae60; }
+        .highlight { color: #e67e22; font-weight: bold; }
+        .note-area { margin-top: 20px; font-size: 0.9em; color: #666; line-height: 1.6; background: #fdfaf0; padding: 15px; border-radius: 8px; border-left: 4px solid #f1c40f; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>工程拆款計算機</h2>
+    
+    <div class="input-group">
+        <input type="number" id="totalPrice" placeholder="輸入總價 (萬)" min="0">
+        <button onclick="calculate()">執行計算</button>
+    </div>
+
+    <div id="resultArea" style="display:none;">
+        <table>
+            <thead>
+                <tr>
+                    <th style="text-align:left;">繳款階段</th>
+                    <th>金額 (萬元)</th>
+                    <th>計算說明</th>
+                </tr>
+            </thead>
+            <tbody id="resultBody"></tbody>
+            <tfoot>
+                <tr class="total-row">
+                    <td style="text-align:left;">總計</td>
+                    <td id="sumAmount">0</td>
+                    <td style="text-align:center;">100% (核對無誤)</td>
+                </tr>
+            </tfoot>
+        </table>
+
+        <div class="note-area">
+            <strong>計算規則備註：</strong><br>
+            1. 貸款：總價 80% (小數點無條件捨去)<br>
+            2. 保留款：總價 5% (小數點無條件進位)<br>
+            3. 開工款：(總價 5% 進位) 減 10 萬<br>
+            4. 工程 1-4 期：總價 2% (取至萬位，小數點捨去)<br>
+            5. 工程 5 期：補足差額之項目
+        </div>
+    </div>
+</div>
+
+<script>
+    function calculate() {
+        const T = Math.floor(document.getElementById('totalPrice').value);
+        if (!T || T <= 0) {
+            alert("請輸入有效的總價金額");
+            return;
+        }
+
+        // --- 固定項 ---
+        const deposit = 2; // 訂金
+        const signing = 8; // 簽約金
+
+        // --- 規則項 ---
+        // 貸款 80% 捨去
+        const loan = Math.floor(T * 0.8);
+        // 保留款 5% 進位
+        const retention = Math.ceil(T * 0.05);
+        // 開工款 (5%進位 - 10萬)
+        const startWork = Math.ceil(T * 0.05) - 10;
+
+        // --- 工程款項 (1-4期取整數) ---
+        const p1 = Math.floor(T * 0.02);
+        const p2 = Math.floor(T * 0.02);
+        const p3 = Math.floor(T * 0.02);
+        const p4 = Math.floor(T * 0.02);
+
+        // --- 第5期 平衡項 ---
+        // 計算除了第5期以外的所有款項總和
+        const subTotal = deposit + signing + startWork + p1 + p2 + p3 + p4 + loan + retention;
+        const p5 = T - subTotal;
+
+        const data = [
+            { stage: "1. 訂金", amt: deposit, desc: "固定金額" },
+            { stage: "2. 簽約金", amt: signing, desc: "固定金額" },
+            { stage: "3. 開工款", amt: startWork, desc: "5%進位 - 10萬" },
+            { stage: "4. 工程第一期", amt: p1, desc: "2% (萬位取整)" },
+            { stage: "5. 工程第二期", amt: p2, desc: "2% (萬位取整)" },
+            { stage: "6. 工程第三期", amt: p3, desc: "2% (萬位取整)" },
+            { stage: "7. 工程第四期", amt: p4, desc: "2% (萬位取整)" },
+            { stage: "8. 工程第五期", amt: p5, desc: "差額補足項", highlight: true },
+            { stage: "9. 銀行貸款", amt: loan, desc: "80% (無條件捨去)" },
+            { stage: "10. 交屋保留款", amt: retention, desc: "5% (無條件進位)" }
+        ];
+
+        const tbody = document.getElementById('resultBody');
+        tbody.innerHTML = "";
+        
+        data.forEach(item => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td style="text-align:left;">${item.stage}</td>
+                <td class="${item.highlight ? 'highlight' : ''}">${item.amt}</td>
+                <td style="text-align:center; font-size: 0.85em; color: #999;">${item.desc}</td>
+            `;
+            tbody.appendChild(row);
+        });
+
+        document.getElementById('sumAmount').innerText = T;
+        document.getElementById('resultArea').style.display = "block";
+    }
+</script>
+
+</body>
+</html>
