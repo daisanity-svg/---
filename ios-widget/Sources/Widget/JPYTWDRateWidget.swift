@@ -36,54 +36,161 @@ struct RateProvider: TimelineProvider {
 
 struct JPYTWDRateWidgetView: View {
     let entry: RateEntry
+    @Environment(\.widgetFamily) private var family
 
-    private let commonAmounts = [1000, 5000, 10000]
+    private let compactAmounts = [1000, 5000, 10000]
+    private let fullAmounts = [1000, 5000, 10000, 50000]
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 8) {
-            HStack {
-                Text("日幣匯率")
-                    .font(.caption.weight(.bold))
-                    .foregroundStyle(.secondary)
-                Spacer()
-                Image(systemName: "yensign.circle.fill")
-                    .foregroundStyle(.brown)
-            }
+        switch family {
+        case .systemSmall:
+            compactView
+        case .systemMedium:
+            mediumView
+        default:
+            largeView
+        }
+    }
 
+    private var compactView: some View {
+        VStack(alignment: .leading, spacing: 7) {
+            header
             Text("1 JPY")
-                .font(.caption)
-                .foregroundStyle(.secondary)
-            Text("\(entry.snapshot.rate.rateText) TWD")
-                .font(.system(size: 22, weight: .bold, design: .rounded))
-                .lineLimit(1)
-                .minimumScaleFactor(0.75)
-
-            Divider()
-
-            ForEach(commonAmounts, id: \.self) { amount in
-                HStack {
-                    Text("¥\(amount.formatted())")
-                    Spacer()
-                    Text((Double(amount) * entry.snapshot.rate).twdCurrencyText)
-                        .fontWeight(.semibold)
-                }
-                .font(.caption)
-            }
-
-            Spacer(minLength: 0)
-
-            Text("點一下開啟換算")
                 .font(.caption2)
                 .foregroundStyle(.secondary)
+            Text("\(entry.snapshot.rate.rateText) TWD")
+                .font(.system(size: 20, weight: .bold, design: .rounded))
+                .lineLimit(1)
+                .minimumScaleFactor(0.72)
+            Divider()
+            amountRow(10000)
+            Spacer(minLength: 0)
+            openAppHint
         }
-        .containerBackground(for: .widget) {
+        .padding(2)
+        .widgetBackground
+        .widgetURL(URL(string: "jpytwdconverter://open"))
+    }
+
+    private var mediumView: some View {
+        VStack(alignment: .leading, spacing: 10) {
+            header
+            HStack(alignment: .firstTextBaseline) {
+                VStack(alignment: .leading, spacing: 3) {
+                    Text("1 JPY")
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                    Text("\(entry.snapshot.rate.rateText) TWD")
+                        .font(.system(size: 24, weight: .bold, design: .rounded))
+                        .lineLimit(1)
+                        .minimumScaleFactor(0.78)
+                }
+                Spacer()
+                openAppPill
+            }
+            Divider()
+            VStack(spacing: 6) {
+                ForEach(compactAmounts, id: \.self) { amount in
+                    amountRow(amount)
+                }
+            }
+        }
+        .padding(2)
+        .widgetBackground
+        .widgetURL(URL(string: "jpytwdconverter://open"))
+    }
+
+    private var largeView: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            header
+            VStack(alignment: .leading, spacing: 4) {
+                Text("目前匯率")
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+                Text("1 JPY = \(entry.snapshot.rate.rateText) TWD")
+                    .font(.system(size: 28, weight: .bold, design: .rounded))
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.78)
+            }
+            Divider()
+            Text("常用換算")
+                .font(.caption.weight(.semibold))
+                .foregroundStyle(.secondary)
+            VStack(spacing: 8) {
+                ForEach(fullAmounts, id: \.self) { amount in
+                    amountRow(amount)
+                }
+            }
+            Spacer(minLength: 0)
+            HStack {
+                Image(systemName: "keyboard")
+                Text("點一下小工具，開啟 App 輸入自訂金額")
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.75)
+            }
+            .font(.caption.weight(.semibold))
+            .foregroundStyle(.brown)
+            .padding(.vertical, 8)
+            .padding(.horizontal, 12)
+            .background(.brown.opacity(0.10), in: Capsule())
+        }
+        .padding(2)
+        .widgetBackground
+        .widgetURL(URL(string: "jpytwdconverter://open"))
+    }
+
+    private var header: some View {
+        HStack(spacing: 6) {
+            Image(systemName: "yensign.circle.fill")
+                .foregroundStyle(.brown)
+            Text("日幣匯率")
+                .font(.caption.weight(.bold))
+                .foregroundStyle(.secondary)
+            Spacer(minLength: 0)
+        }
+    }
+
+    private func amountRow(_ amount: Int) -> some View {
+        HStack {
+            Text("¥\(amount.formatted())")
+                .foregroundStyle(.primary)
+            Spacer()
+            Text((Double(amount) * entry.snapshot.rate).twdCurrencyText)
+                .fontWeight(.bold)
+                .monospacedDigit()
+        }
+        .font(.callout)
+    }
+
+    private var openAppHint: some View {
+        Text("點一下輸入")
+            .font(.caption2.weight(.semibold))
+            .foregroundStyle(.brown)
+            .lineLimit(1)
+    }
+
+    private var openAppPill: some View {
+        HStack(spacing: 5) {
+            Image(systemName: "keyboard")
+            Text("輸入")
+        }
+        .font(.caption.weight(.semibold))
+        .foregroundStyle(.brown)
+        .padding(.vertical, 7)
+        .padding(.horizontal, 11)
+        .background(.brown.opacity(0.10), in: Capsule())
+    }
+}
+
+private extension View {
+    var widgetBackground: some View {
+        containerBackground(for: .widget) {
             LinearGradient(
                 colors: [Color(red: 0.97, green: 0.93, blue: 0.87), .white],
                 startPoint: .topLeading,
                 endPoint: .bottomTrailing
             )
         }
-        .widgetURL(URL(string: "jpytwdconverter://open"))
     }
 }
 
@@ -96,7 +203,7 @@ struct JPYTWDRateWidget: Widget {
         }
         .configurationDisplayName("日幣匯率")
         .description("顯示 JPY → TWD 匯率與常用金額換算。")
-        .supportedFamilies([.systemSmall, .systemMedium])
+        .supportedFamilies([.systemSmall, .systemMedium, .systemLarge])
     }
 }
 
@@ -107,7 +214,7 @@ struct JPYTWDWidgetBundle: WidgetBundle {
     }
 }
 
-#Preview(as: .systemSmall) {
+#Preview(as: .systemMedium) {
     JPYTWDRateWidget()
 } timeline: {
     RateEntry(date: Date(), snapshot: .fallback)
