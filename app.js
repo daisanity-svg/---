@@ -5,6 +5,7 @@ const jpyInput = document.querySelector("#jpyInput");
 const twdInput = document.querySelector("#twdInput");
 const manualRateInput = document.querySelector("#manualRateInput");
 const applyManualRateBtn = document.querySelector("#applyManualRateBtn");
+const clearBtn = document.querySelector("#clearBtn");
 const quickButtons = document.querySelectorAll(".quick button");
 
 let rate = null;
@@ -17,6 +18,17 @@ const formatRate = (value) => {
 
 const setStatus = (message) => {
   statusText.textContent = message;
+};
+
+const selectInputValue = (input) => {
+  window.setTimeout(() => input.select(), 0);
+};
+
+const clearAmounts = () => {
+  activeInput = "jpy";
+  jpyInput.value = "";
+  twdInput.value = "";
+  jpyInput.focus();
 };
 
 const updateOutputs = () => {
@@ -93,6 +105,12 @@ const refreshRate = async () => {
   }
 };
 
+jpyInput.addEventListener("focus", () => selectInputValue(jpyInput));
+jpyInput.addEventListener("click", () => selectInputValue(jpyInput));
+
+twdInput.addEventListener("focus", () => selectInputValue(twdInput));
+twdInput.addEventListener("click", () => selectInputValue(twdInput));
+
 jpyInput.addEventListener("input", () => {
   activeInput = "jpy";
   updateOutputs();
@@ -103,6 +121,7 @@ twdInput.addEventListener("input", () => {
   updateOutputs();
 });
 
+clearBtn.addEventListener("click", clearAmounts);
 refreshBtn.addEventListener("click", refreshRate);
 
 applyManualRateBtn.addEventListener("click", () => {
@@ -123,6 +142,7 @@ quickButtons.forEach((button) => {
     activeInput = "jpy";
     jpyInput.value = button.dataset.amount;
     updateOutputs();
+    selectInputValue(jpyInput);
   });
 });
 
