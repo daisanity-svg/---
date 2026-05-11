@@ -22,16 +22,21 @@
       <form class="converter top-converter" autocomplete="off">
         <label>
           <span>日幣金額 JPY</span>
-          <input id="jpyInput" inputmode="decimal" type="number" min="0" step="0.01" value="10000" />
+          <input id="jpyInput" inputmode="decimal" type="number" min="0" step="0.01" value="10000" enterkeyhint="done" />
         </label>
 
         <button class="swap" type="button" aria-label="換算方向">換算</button>
 
         <label>
           <span>換算台幣 TWD</span>
-          <input id="twdInput" inputmode="decimal" type="number" min="0" step="0.01" />
+          <input id="twdInput" inputmode="decimal" type="number" min="0" step="0.01" enterkeyhint="done" />
         </label>
       </form>
+
+      <div class="actions-row">
+        <button id="clearBtn" class="clear-btn" type="button">清除金額</button>
+        <span class="hint">點一下金額欄位會自動全選，可直接輸入新金額。</span>
+      </div>
 
       <div class="quick">
         <button data-amount="1000">¥1,000</button>
