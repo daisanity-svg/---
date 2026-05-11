@@ -8,7 +8,7 @@ settings:
     SWIFT_VERSION: 5.9
     CURRENT_PROJECT_VERSION: 1
     MARKETING_VERSION: 1.0.0
-    DEVELOPMENT_TEAM: ''
+    DEVELOPMENT_TEAM: FNRFZAPUUM
 targets:
   JPYTWDConverter:
     type: application
@@ -21,6 +21,7 @@ targets:
         PRODUCT_BUNDLE_IDENTIFIER: com.daisanity.jpytwdconverter
         INFOPLIST_FILE: Sources/App/Info.plist
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        DEVELOPMENT_TEAM: FNRFZAPUUM
     dependencies:
       - target: JPYTWDConverterWidgetExtension
   JPYTWDConverterWidgetExtension:
@@ -35,3 +36,4 @@ targets:
         INFOPLIST_FILE: Sources/Widget/Info.plist
         SKIP_INSTALL: YES
         APPLICATION_EXTENSION_API_ONLY: YES
+        DEVELOPMENT_TEAM: FNRFZAPUUM
