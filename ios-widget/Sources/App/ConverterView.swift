@@ -24,6 +24,7 @@ struct ConverterView: View {
                 }
                 .padding(20)
             }
+            .scrollDismissesKeyboard(.interactively)
             .background(
                 LinearGradient(
                     colors: [Color(red: 0.97, green: 0.93, blue: 0.87), .white],
@@ -32,7 +33,20 @@ struct ConverterView: View {
                 )
                 .ignoresSafeArea()
             )
+            .contentShape(Rectangle())
+            .onTapGesture {
+                hideKeyboard()
+            }
             .navigationTitle("日幣換算")
+            .toolbar {
+                ToolbarItemGroup(placement: .keyboard) {
+                    Spacer()
+                    Button("完成") {
+                        hideKeyboard()
+                    }
+                    .fontWeight(.semibold)
+                }
+            }
             .task {
                 await refreshRate()
             }
@@ -102,6 +116,7 @@ struct ConverterView: View {
                     focusedField = .jpy
                     jpyText = String(amount)
                     convertFromJPY()
+                    hideKeyboard()
                 }
                 .buttonStyle(.bordered)
                 .tint(.brown)
@@ -121,6 +136,7 @@ struct ConverterView: View {
                 }
                 Spacer()
                 Button(isLoading ? "更新中" : "更新匯率") {
+                    hideKeyboard()
                     Task { await refreshRate() }
                 }
                 .buttonStyle(.borderedProminent)
@@ -153,6 +169,10 @@ struct ConverterView: View {
         jpyText = ""
         twdText = ""
         focusedField = .jpy
+    }
+
+    private func hideKeyboard() {
+        focusedField = nil
     }
 
     private func convertFromJPY() {
