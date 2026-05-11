@@ -3,27 +3,23 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="theme-color" content="#f7efe4" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-title" content="日幣換算" />
   <title>日幣換算台幣｜即時匯率</title>
+  <link rel="manifest" href="./manifest.json" />
   <link rel="stylesheet" href="./style.css" />
 </head>
 <body>
   <main class="app">
     <section class="card">
-      <div class="eyebrow">JPY → TWD Converter</div>
-      <h1>日幣換算台幣</h1>
-      <p class="subtitle">以查詢當下的即時匯率換算，並保留手動匯率備援。</p>
+      <header class="hero">
+        <div class="eyebrow">JPY → TWD Converter</div>
+        <h1>日幣換算台幣</h1>
+        <p class="subtitle">輸入日幣金額，依查詢當下的即時匯率換算台幣。</p>
+      </header>
 
-      <div class="rate-panel">
-        <div>
-          <span class="label">目前匯率</span>
-          <strong id="rateText">讀取中...</strong>
-        </div>
-        <button id="refreshBtn" type="button">更新匯率</button>
-      </div>
-
-      <div class="status" id="statusText">正在取得即時匯率...</div>
-
-      <form class="converter" autocomplete="off">
+      <form class="converter top-converter" autocomplete="off">
         <label>
           <span>日幣金額 JPY</span>
           <input id="jpyInput" inputmode="decimal" type="number" min="0" step="0.01" value="10000" />
@@ -37,6 +33,14 @@
         </label>
       </form>
 
+      <div class="quick">
+        <button data-amount="1000">¥1,000</button>
+        <button data-amount="5000">¥5,000</button>
+        <button data-amount="10000">¥10,000</button>
+        <button data-amount="50000">¥50,000</button>
+        <button data-amount="100000">¥100,000</button>
+      </div>
+
       <details class="manual">
         <summary>手動設定匯率</summary>
         <div class="manual-grid">
@@ -48,17 +52,21 @@
         </div>
       </details>
 
-      <div class="quick">
-        <button data-amount="1000">¥1,000</button>
-        <button data-amount="5000">¥5,000</button>
-        <button data-amount="10000">¥10,000</button>
-        <button data-amount="50000">¥50,000</button>
-        <button data-amount="100000">¥100,000</button>
-      </div>
+      <footer class="rate-footer">
+        <div class="rate-panel">
+          <div>
+            <span class="label">目前匯率</span>
+            <strong id="rateText">讀取中...</strong>
+          </div>
+          <button id="refreshBtn" type="button">更新匯率</button>
+        </div>
 
-      <p class="note">
-        匯率來源會依可用性自動嘗試多個公開 API。實際銀行、信用卡或換匯所成交匯率仍可能含手續費與買賣價差。
-      </p>
+        <div class="status" id="statusText">正在取得即時匯率...</div>
+
+        <p class="note">
+          匯率來源會依可用性自動嘗試多個公開 API。實際銀行、信用卡或換匯所成交匯率仍可能含手續費與買賣價差。
+        </p>
+      </footer>
     </section>
   </main>
 
