@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#fff8ec"/>
+      <stop offset="0.56" stop-color="#f5e4cf"/>
+      <stop offset="1" stop-color="#e7c79f"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#d8a469"/>
+      <stop offset="0.45" stop-color="#a87443"/>
+      <stop offset="1" stop-color="#704321"/>
+    </linearGradient>
+    <linearGradient id="coin" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#fff9ef"/>
+      <stop offset="1" stop-color="#f2d5ad"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="18" stdDeviation="22" flood-color="#5b371d" flood-opacity="0.22"/>
+    </filter>
+  </defs>
+
+  <rect width="1024" height="1024" rx="218" fill="url(#bg)"/>
+  <rect x="42" y="42" width="940" height="940" rx="182" fill="none" stroke="#fff7eb" stroke-width="14" opacity="0.75"/>
+  <rect x="68" y="68" width="888" height="888" rx="162" fill="none" stroke="#b98953" stroke-width="4" opacity="0.25"/>
+
+  <g opacity="0.18" fill="none" stroke="#b98953" stroke-width="18">
+    <path d="M74 760c38-58 116-58 154 0s116 58 154 0 116-58 154 0 116 58 154 0 116-58 154 0"/>
+    <path d="M74 828c38-58 116-58 154 0s116 58 154 0 116-58 154 0 116 58 154 0 116-58 154 0"/>
+    <path d="M74 896c38-58 116-58 154 0s116 58 154 0 116-58 154 0 116 58 154 0 116-58 154 0"/>
+  </g>
+
+  <g opacity="0.18" fill="#8b5a30">
+    <path d="M806 308h88v354h-88z"/>
+    <path d="M818 248h64v60h-64z"/>
+    <path d="M830 202h40v46h-40z"/>
+    <path d="M844 132h12v70h-12z"/>
+    <path d="M780 662c60-74 141-74 202 0z"/>
+  </g>
+
+  <g filter="url(#shadow)">
+    <circle cx="364" cy="348" r="218" fill="url(#coin)" stroke="url(#gold)" stroke-width="28"/>
+    <circle cx="364" cy="348" r="184" fill="none" stroke="#8a552a" stroke-width="5" opacity="0.28"/>
+    <text x="364" y="444" text-anchor="middle" font-family="Arial Rounded MT Bold, Arial, sans-serif" font-size="270" font-weight="800" fill="#5f371c">¥</text>
+  </g>
+
+  <g filter="url(#shadow)">
+    <circle cx="660" cy="646" r="220" fill="url(#coin)" stroke="url(#gold)" stroke-width="28"/>
+    <circle cx="660" cy="646" r="186" fill="none" stroke="#8a552a" stroke-width="5" opacity="0.28"/>
+    <text x="660" y="742" text-anchor="middle" font-family="Arial Rounded MT Bold, Arial, sans-serif" font-size="268" font-weight="800" fill="#5f371c">$</text>
+  </g>
+
+  <g fill="none" stroke="url(#gold)" stroke-width="38" stroke-linecap="round" stroke-linejoin="round" filter="url(#shadow)">
+    <path d="M614 286c70 18 124 72 144 141"/>
+    <path d="M758 427l-76-12 55 61z" fill="url(#gold)" stroke="none"/>
+    <path d="M406 720c-72-14-130-65-154-132"/>
+    <path d="M252 588l77 7-59-57z" fill="url(#gold)" stroke="none"/>
+  </g>
+</svg>
