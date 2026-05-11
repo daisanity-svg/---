@@ -68,7 +68,7 @@ h1 {
   letter-spacing: -0.05em;
 }
 
-.subtitle, .note, .status {
+.subtitle, .note, .status, .hint {
   color: var(--muted);
   line-height: 1.7;
 }
@@ -147,6 +147,27 @@ button:disabled {
 .swap {
   min-width: 76px;
   height: 54px;
+}
+
+.actions-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 14px;
+}
+
+.clear-btn {
+  background: rgba(42, 33, 24, 0.1);
+  color: var(--text);
+}
+
+.clear-btn:hover {
+  background: rgba(42, 33, 24, 0.16);
+}
+
+.hint {
+  font-size: 13px;
 }
 
 .quick {
@@ -234,6 +255,15 @@ summary {
   }
 
   .swap {
+    width: 100%;
+  }
+
+  .actions-row {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .clear-btn {
     width: 100%;
   }
 
