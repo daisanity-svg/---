@@ -1,47 +1,243 @@
-const questions=[
-  {id:'q1',title:'最近的你，最像下面哪一句？',answers:[{text:'明明很努力，卻還是覺得卡住',type:'pressure'},{text:'很想改變，但不知道從哪裡開始',type:'fog'},{text:'表面沒事，其實很累',type:'suppressed'},{text:'一直在照顧別人的情緒',type:'caretaker'}]},
-  {id:'q2',title:'你最近最害怕的是？',answers:[{text:'被忽略，或不再被需要',type:'attachment'},{text:'事情失控，變得不是自己能掌握',type:'control'},{text:'突然改變現在熟悉的生活',type:'stability'},{text:'別人真正看見自己的脆弱',type:'defense'}]},
-  {id:'q3',title:'在人際裡，你比較常是？',answers:[{text:'先理解別人，再處理自己',type:'caretaker'},{text:'看起來理性，其實情緒很多',type:'defense'},{text:'習慣自己消化情緒',type:'lonely'},{text:'對關係裡的變化很敏感',type:'sensitive'}]},
-  {id:'q4',title:'最近最消耗你的，是哪一種感覺？',answers:[{text:'反覆內耗，停不下來',type:'sensitive'},{text:'責任太多，不能倒下',type:'pressure'},{text:'不知道未來會走向哪裡',type:'fog'},{text:'一直硬撐，但不想被看出來',type:'suppressed'}]},
-  {id:'q5',title:'你現在最想被理解的是？',answers:[{text:'我不是不努力，只是真的有點累',type:'pressure'},{text:'我不是故意想太多，只是很容易感覺到變化',type:'sensitive'},{text:'我其實有很多情緒，只是不知道怎麼說',type:'suppressed'},{text:'我只是太久沒有真正安心了',type:'attachment'}]},
-  {id:'q6',title:'如果要你選一個最近的狀態，你會選？',answers:[{text:'想靠近人，但又怕自己太需要對方',type:'attachment'},{text:'想把一切做好，所以很難放鬆',type:'control'},{text:'想離開舊狀態，但還沒找到新的方向',type:'fog'},{text:'很多話到了嘴邊，最後還是吞回去',type:'suppressed'}]},
-  {id:'q7',title:'你最常對自己說的是？',answers:[{text:'再撐一下就好了',type:'pressure'},{text:'不要麻煩別人',type:'lonely'},{text:'是不是我哪裡做得不夠好',type:'sensitive'},{text:'算了，先顧好大家的感受',type:'caretaker'}]},
-  {id:'q8',title:'接下來你最想要的是？',answers:[{text:'穩定，不要再反覆內耗',type:'stability'},{text:'重新相信自己值得被好好對待',type:'attachment'},{text:'找回方向和行動感',type:'fog'},{text:'學會不再什麼都自己扛',type:'pressure'}]}
+const questions = [
+  { id: 'q1', title: '最近的你，最像哪一句？', answers: [
+    { text: '明明很努力，卻還是卡住', type: 'pressure' },
+    { text: '很想改變，但不知道從哪裡開始', type: 'fog' },
+    { text: '表面沒事，其實很累', type: 'suppressed' },
+    { text: '一直在顧別人的感受', type: 'caretaker' }
+  ]},
+  { id: 'q2', title: '你最近最怕的是？', answers: [
+    { text: '被忽略，或不再被需要', type: 'attachment' },
+    { text: '事情失控，不在自己掌握裡', type: 'control' },
+    { text: '改變太快，來不及準備', type: 'stability' },
+    { text: '被人看見真正脆弱的那一面', type: 'defense' }
+  ]},
+  { id: 'q3', title: '在人際裡，你比較像？', answers: [
+    { text: '先理解別人，再處理自己', type: 'caretaker' },
+    { text: '看起來冷靜，其實心裡很多話', type: 'defense' },
+    { text: '很多事都自己消化', type: 'lonely' },
+    { text: '對語氣和態度的變化很敏感', type: 'sensitive' }
+  ]},
+  { id: 'q4', title: '最近最消耗你的感覺是？', answers: [
+    { text: '一直想，停不下來', type: 'sensitive' },
+    { text: '不能倒下，只能繼續撐', type: 'pressure' },
+    { text: '不知道自己到底要去哪裡', type: 'fog' },
+    { text: '很想說，但最後還是吞回去', type: 'suppressed' }
+  ]},
+  { id: 'q5', title: '你最想被理解的是？', answers: [
+    { text: '我不是不努力，我是真的累了', type: 'pressure' },
+    { text: '我不是想太多，我只是很容易感覺到變化', type: 'sensitive' },
+    { text: '我不是沒情緒，我只是不知道怎麼說', type: 'suppressed' },
+    { text: '我只是太久沒有真正安心了', type: 'attachment' }
+  ]},
+  { id: 'q6', title: '如果選一個最近的狀態？', answers: [
+    { text: '想靠近，但又怕自己太需要對方', type: 'attachment' },
+    { text: '想把事情做好，所以很難放鬆', type: 'control' },
+    { text: '想離開舊狀態，但還沒找到新方向', type: 'fog' },
+    { text: '很多話到了嘴邊，最後還是算了', type: 'suppressed' }
+  ]},
+  { id: 'q7', title: '你最常對自己說的是？', answers: [
+    { text: '再撐一下就好了', type: 'pressure' },
+    { text: '不要麻煩別人', type: 'lonely' },
+    { text: '是不是我哪裡做得不夠好', type: 'sensitive' },
+    { text: '算了，先顧好大家的感受', type: 'caretaker' }
+  ]},
+  { id: 'q8', title: '接下來你最想要的是？', answers: [
+    { text: '穩一點，不要再反覆內耗', type: 'stability' },
+    { text: '重新相信自己值得被好好對待', type: 'attachment' },
+    { text: '找回方向和行動感', type: 'fog' },
+    { text: '不用再什麼都自己扛', type: 'pressure' }
+  ]}
 ];
 
-const archetypes={
-  sensitive:{name:'高敏感觀察型',one:'你不是想太多，而是太早察覺到氣氛與情緒的變化。',keyword:'敏銳、預感、過度解讀',tone:'你對細節、語氣和氣氛特別有感。很多人還沒意識到變化時，你已經先感覺到了。這份敏銳讓你很會理解人，也讓你很容易比別人更早緊張。'},
-  pressure:{name:'過度責任型',one:'你最大的壓力，很多時候其實來自你自己。',keyword:'責任、撐住、自我要求',tone:'你習慣把事情扛起來，也習慣在別人還沒開口前，就先替局面想好下一步。你不是不能休息，而是心裡常覺得一放鬆，事情就會失控。'},
-  fog:{name:'轉變迷霧型',one:'你不是沒有方向，而是正在離開舊的自己。',keyword:'轉折、迷惘、重整',tone:'你現在像站在一段轉換期裡。舊的生活方式已經不太適合你，但新的方向還沒有完全成形，所以你會一邊想前進，一邊覺得自己卡在霧裡。'},
-  suppressed:{name:'情緒壓抑型',one:'你不是沒情緒，只是太習慣先把自己放到最後。',keyword:'吞忍、沉默、累積',tone:'你不是沒有感覺，而是太習慣把感覺收起來。你很少第一時間表達不舒服，因為你總覺得自己再忍一下就好，但那些沒被說出口的東西，其實都還在。'},
-  caretaker:{name:'討好照顧型',one:'你很會理解別人，但很少真正照顧自己。',keyword:'照顧、委屈、界線',tone:'你很擅長站在別人的角度想事情，也很容易注意到別人的需要。問題是，你常常把別人的情緒排在自己前面，久了就會分不清楚，自己到底是真的願意，還是只是不好意思拒絕。'},
-  attachment:{name:'關係依附型',one:'你真正渴望的，不是熱鬧，而是安心。',keyword:'安全感、確認、被愛',tone:'你很重視關係裡的穩定感。你在乎的不是對方說了多少漂亮話，而是對方有沒有讓你感覺到自己是被放在心上的。當這份確認感不足時，你就會開始反覆懷疑自己。'},
-  control:{name:'完美控制型',one:'你習慣把一切整理好，卻很少允許自己鬆下來。',keyword:'控制、標準、怕失誤',tone:'你對自己有一套很高的標準，也不喜歡事情處在模糊狀態。你會努力把一切安排好，因為只要有一點不確定，你心裡就很難真正安定。'},
-  defense:{name:'理性防衛型',one:'你表面理性，但其實只是很怕受傷。',keyword:'冷靜、防衛、保護自己',tone:'你常常用理性把自己包起來。不是你沒有感覺，而是你很清楚，一旦太快把真正的自己交出去，就有可能受傷。所以你寧可看起來淡一點，也不想讓人知道你其實很在意。'},
-  lonely:{name:'孤獨清醒型',one:'你不是不需要人，而是太習慣一個人撐住。',keyword:'清醒、距離、獨自承受',tone:'你看事情很清楚，也習慣自己做判斷。很多時候不是你不想靠近人，而是你太早學會不要期待太多。你不是孤僻，只是很少遇到真正讓你放心卸下的人。'},
-  stability:{name:'安全感需求型',one:'你不是害怕改變，而是害怕失去熟悉的安全感。',keyword:'穩定、保護、慢慢來',tone:'你很需要生活裡有一些可預期的東西。當變化來得太快，你會本能地想抓住熟悉的人事物。這不是軟弱，而是你正在用自己的方式保護內在秩序。'}
+const archetypes = {
+  sensitive: { name: '高敏感觀察型', one: '你不是想太多。你只是太早感覺到變化。', keyword: '敏銳／反覆想／怕自己做錯' },
+  pressure: { name: '過度責任型', one: '你不是不累。你只是很習慣撐住。', keyword: '責任／硬撐／不能倒下' },
+  fog: { name: '轉變迷霧型', one: '你不是沒有方向。你只是正在離開舊的自己。', keyword: '迷惘／轉折／想重來' },
+  suppressed: { name: '情緒壓抑型', one: '你不是沒情緒。你只是太會忍。', keyword: '吞下去／算了／沒說出口' },
+  caretaker: { name: '討好照顧型', one: '你很會照顧別人。只是常常忘了自己。', keyword: '體貼／退讓／怕別人失望' },
+  attachment: { name: '關係不安型', one: '你要的不是很多。你只是想被堅定選擇。', keyword: '安全感／確認／怕被丟下' },
+  control: { name: '完美控制型', one: '你不是愛控制。你只是太怕失控。', keyword: '標準／預想／放不下' },
+  defense: { name: '理性防衛型', one: '你看起來很冷靜。其實只是很怕受傷。', keyword: '距離／防衛／假裝不在意' },
+  lonely: { name: '孤獨清醒型', one: '你不是不需要人。你只是太習慣一個人。', keyword: '清醒／距離／自己消化' },
+  stability: { name: '安全感需求型', one: '你不是害怕改變。你只是需要慢一點。', keyword: '穩定／熟悉／慢慢來' }
 };
 
-const typeModules={
-  sensitive:{consume:['你最容易被消耗的地方，是你會把很多微小訊號都放進心裡反覆解讀。對方一句話、一次沉默、一個表情變化，都可能讓你開始思考是不是自己哪裡做錯。','你不是脆弱，而是感知太開。當你長期處在需要讀空氣、看臉色、猜測他人想法的環境裡，你的內在就會一直處在警戒狀態。'],pattern:['你在人際或關係裡，常常比別人更早發現問題，也比別人更早開始焦慮。你很想確認事情到底怎麼了，但又怕自己問出口後顯得太敏感。','你很擅長替別人解釋，也會替對方找理由。這讓你看起來成熟，但也可能讓你一再忽略自己的不舒服。'],blind:['你的盲點是：你太相信自己的感受，卻不一定給現實足夠的驗證時間。感覺很重要，但不是每一個感覺都需要立刻被處理。','你需要練習的是，不要把每一個關係變化都解讀成自己的責任。有些人的冷淡，不一定是你做錯，而是對方本來就不穩定。'],strength:['你的優勢是很強的洞察力和共感力。你能理解別人沒說出口的東西，也能在混亂裡很快抓到情緒核心。','當你不再把敏感拿來傷害自己，它會變成很強的直覺、創作力與人際判斷力。'],next:['接下來 30 天，你要做的是降低過度解讀。遇到讓你不安的事情，先不要急著補故事，先問自己：我看到的是事實，還是我腦中最害怕的版本？']},
-  pressure:{consume:['你真正累的地方，是你太習慣把「我應該」放在「我想要」前面。你會自動接住責任，也會下意識要求自己不能拖累任何人。','你長期處在一種不能倒下的狀態裡。即使沒有人明說，你也會覺得自己必須更成熟、更可靠、更有效率。'],pattern:['你在工作或生活裡很容易變成那個收尾的人。別人沒想到的，你會想到；別人沒處理的，你會補上。問題是，久了大家會把你的承擔當成理所當然。','你不太會主動說自己累，因為你覺得說出口也不一定有人能接住。於是你一邊做，一邊把情緒壓下去。'],blind:['你的盲點是：你把價值感綁在表現上。只要狀態不好，你就會懷疑自己是不是不夠努力。','你需要學會分辨，哪些責任真的屬於你，哪些只是你太習慣代替別人承擔。'],strength:['你的優勢是穩定、可靠、抗壓性強。你不是只有努力，而是有能力把混亂整理成秩序。','當你開始懂得分配責任，你的領導力會比現在更明顯，因為你不再只是硬撐，而是能帶著節奏前進。'],next:['接下來 30 天，請你練習少接一件不是你非做不可的事。你不需要用累壞自己來證明你值得被信任。']},
-  fog:{consume:['你現在最消耗的，是一種「明知道不能再停在原地，卻還沒看清下一步」的拉扯。你可能對很多事失去耐心，但又還沒有新的方向可以完全投入。','你不是沒有想法，而是想法太多，反而讓你更難開始。每一條路都有可能，也都有風險，於是你卡在選擇之前。'],pattern:['你近期可能常常想重新整理生活、工作或關係，但真的要行動時，又會被現實條件拉住。','你會對未來有期待，也會害怕自己選錯。這讓你看起來像是拖延，其實是在等待內在某個答案變得清楚。'],blind:['你的盲點是期待一次找到完整答案。但轉換期的答案通常不是想出來的，而是邊走邊確認出來的。','你需要放下「一定要準備好才能開始」的想法。很多時候，先動一步，霧才會散一點。'],strength:['你的優勢是高度的轉化能力。你不適合永遠停在一種固定版本裡，你本來就會隨著生命階段更新自己。','當你願意承認自己正在變，你會發現這不是混亂，而是重新定位的開始。'],next:['接下來 30 天，不要逼自己做一個巨大決定。請先選一件小事開始，例如整理空間、調整作息、完成一個小計畫。方向感會從行動裡慢慢回來。']},
-  suppressed:{consume:['你最累的地方，是很多情緒都沒有真正被說出來。你看起來可以忍、可以撐、可以算了，但那些被你吞下去的感受，其實都會在某個時候回來。','你不是不在意，而是太習慣把在意藏起來。你怕一說出口就造成麻煩，怕自己顯得情緒化，所以常常選擇沉默。'],pattern:['你在人際裡常常扮演穩定的人，但內在其實不一定穩。你只是很會把狀態收好，讓別人看不出來。','你會把很多失望合理化，告訴自己沒關係、算了、大家都不容易。可是你的心裡其實記得。'],blind:['你的盲點是把沉默當成成熟。真正的成熟不是永遠不說，而是能在適當的時候，清楚表達自己的界線。','你需要練習讓情緒有出口。不是每一次不舒服都要爆發，但也不該每一次都忍掉。'],strength:['你的優勢是很強的承受力與情緒厚度。你不是沒有力量，只是這份力量常常被用來壓抑自己。','當你開始把感受說清楚，你會變得更穩，而不是更脆弱。'],next:['接下來 30 天，請你找一件小事練習表達不舒服。不是為了吵架，而是為了讓自己知道：我的感受也值得被放在桌面上。']},
-  caretaker:{consume:['你真正累的地方，是你太容易先感覺到別人的需要。你會自動照顧、安撫、配合，甚至在對方還沒開口前，就先替對方想好。','你常常不是不想拒絕，而是一想到拒絕後對方可能失望，你就會先退讓。久了，你會分不清自己是願意，還是只是害怕讓人不舒服。'],pattern:['你在人際裡很容易成為情緒緩衝墊。大家習慣找你說話，習慣讓你理解，但不一定會同樣理解你。','你會用體貼換取關係穩定，卻也可能因此讓自己累積委屈。'],blind:['你的盲點是把被需要誤認成被愛。被需要是一種功能，被愛則是即使你不付出，也仍然被珍惜。','你需要練習的是：不靠過度付出，也能維持關係。真正健康的關係，不會因為你少照顧一點就崩掉。'],strength:['你的優勢是溫柔、細膩、能讓人安心。你很懂人的脆弱，也很會在關係裡創造連結。','當你建立界線，你的溫柔會更有力量，因為它不再是委屈換來的。'],next:['接下來 30 天，請練習在答應之前停三秒，問自己：我是真的想做，還是只是怕對方失望？']},
-  attachment:{consume:['你最容易被消耗的，是關係裡的不確定感。當你感覺對方忽冷忽熱、沒有回應、態度變淡，你就會開始懷疑自己是不是不夠好。','你真正想要的不是控制對方，而是確認自己在對方心裡的位置。只要這個位置模糊，你就很難安心。'],pattern:['你在關係裡容易變得很細膩，也很容易因為對方的小變化而受影響。你可能會假裝沒事，但心裡其實一直在等待對方給你一個明確訊號。','你很想被愛，但又害怕自己表現得太需要。於是你常常在靠近和退後之間拉扯。'],blind:['你的盲點是容易把對方的回應速度，當成自己價值的證明。可是你的價值不該交給別人的忽冷忽熱來決定。','你需要練習把注意力從「他怎麼看我」拉回「我在這段關係裡舒服嗎」。'],strength:['你的優勢是深情、真誠、願意經營關係。你不是隨便的人，也不會輕易把感情當遊戲。','當你建立起自己的安全感，你會變得很有愛，也不容易再被不穩定的人牽著走。'],next:['接下來 30 天，請你停止用猜測折磨自己。真正適合你的人，不會只讓你靠想像維持安全感。']},
-  control:{consume:['你真正累的地方，是你太害怕事情沒有照預期走。你會把很多細節先想好，因為只要有不確定，你的心就很難放鬆。','你不是愛控制別人，而是你需要透過掌握細節來獲得安全感。只是當你什麼都想掌握時，自己也會被困住。'],pattern:['你在工作或關係裡容易承擔規劃者的角色。你希望事情有效率、有秩序、有標準，也會對混亂和拖延特別敏感。','你很難完全放心交給別人，因為你總覺得最後還是自己處理比較穩。'],blind:['你的盲點是把放鬆誤以為失控。其實真正的穩定，不是每件事都在你掌握裡，而是即使有變化，你也相信自己能應對。','你需要練習允許一點不完美。不是降低標準，而是不要讓標準變成壓迫自己的工具。'],strength:['你的優勢是組織力、執行力和判斷力。你能把複雜事情拆解清楚，也能把混亂拉回軌道。','當你學會信任他人與保留彈性，你的能力會從控制變成真正的管理。'],next:['接下來 30 天，請你挑一件低風險的小事，允許它不用完美。你會發現，不完美不一定會毀掉結果。']},
-  defense:{consume:['你最累的地方，是你其實很在意，卻又要假裝自己沒那麼在意。你用理性保護自己，也用距離避免失望。','你不是冷淡，而是太清楚受傷的感覺，所以不想太快把真正的自己交出去。'],pattern:['你在人際或關係裡常常會先觀察，再決定要不要靠近。你不容易完全信任一個人，因為你很怕對方最後證明自己不值得。','你可能會用冷靜、分析、開玩笑或沉默，避開真正脆弱的部分。'],blind:['你的盲點是把保護自己變成隔離自己。你以為只要不投入就不會受傷，但長期下來，也會讓真正想靠近你的人進不來。','你需要分辨：哪些人真的危險，哪些人只是需要一點時間建立信任。'],strength:['你的優勢是清醒、理性、有判斷力。你不容易被表象迷惑，也不會輕易把自己交給不可靠的人。','當你願意稍微放下一點防衛，你的真誠會變得很有重量，因為那不是隨便給出去的東西。'],next:['接下來 30 天，請你練習對一個相對安全的人，多說一點真實感受。不是全部打開，而是讓自己知道：靠近不一定等於危險。']},
-  lonely:{consume:['你真正累的地方，是太習慣一個人把事情想完、做完、撐完。你不是不需要陪伴，只是很少期待有人真的能理解你。','你看事情很清楚，也因此更容易覺得孤單。因為很多你已經看見的問題，別人可能還停在表面。'],pattern:['你在人際裡會保持距離，不是因為你高傲，而是你不想花力氣解釋太多。你寧可安靜，也不想讓自己進入無效溝通。','你常常把真正的情緒藏得很深。別人看到的是你的獨立，卻不一定看到你也有想被接住的時候。'],blind:['你的盲點是太快判斷沒有人懂你。確實不是每個人都能進入你的世界，但也不代表所有靠近都是打擾。','你需要練習給少數人一點機會，而不是在一開始就把門關起來。'],strength:['你的優勢是獨立、清醒、內在深度強。你能在不被群體帶著走的情況下，保有自己的判斷。','當你找到真正同頻的人，你的穩定與深度會成為很珍貴的力量。'],next:['接下來 30 天，請你不要急著把自己縮回安全距離。選一個值得的人，讓他多看見你一點。']},
-  stability:{consume:['你最容易被消耗的，是變動帶來的不安。你需要時間適應，也需要一個能讓你確認安全的節奏。','你不是不想進步，而是你很清楚，一旦生活失去穩定感，你的內在就會先亂掉。'],pattern:['你在面對選擇時，常常會先評估風險。你需要知道後果、知道退路、知道自己不會被丟在半路。','你可能會被說想太多或太保守，但其實你只是需要更穩的步伐。'],blind:['你的盲點是容易把未知想成危險。可是有些改變不一定會讓你失去安全感，反而可能帶你建立新的穩定。','你需要練習小幅度地更新生活，而不是等到不得不改變時才被迫面對。'],strength:['你的優勢是穩定、細心、能長期經營。你不適合短暫衝動，但很適合把一件事慢慢做深。','當你找到自己的節奏，你的持續力會比很多人更可靠。'],next:['接下來 30 天，請你選一個很小的改變開始。不要逼自己立刻跳出去，先讓內在知道：改變也可以是安全的。']}
+const typeModules = {
+  sensitive: {
+    core: ['對方一冷淡。\n\n你就開始檢討自己。', '你很容易記得別人一句話。\n\n尤其是那種聽起來不太對勁的語氣。', '很多人還沒發現氣氛變了。\n\n你已經先感覺到了。'],
+    stuck: ['你最累的不是敏感。\n\n是每次感覺到變化，都會先懷疑是不是自己做錯。', '你常常不是被事情傷到。\n\n是被自己腦中反覆重播的細節傷到。'],
+    pattern: ['你會替對方找理由。\n\n然後把委屈留給自己。', '你明明很想問清楚。\n\n但又怕自己看起來太在意。'],
+    blind: ['不是每個冷淡，都是你的問題。', '有些人的忽冷忽熱，不值得你整晚睡不好。'],
+    strength: ['你的敏銳不是缺點。\n\n只是以前太常拿來傷自己。', '你其實很會看人。\n\n只是有時候太快先檢討自己。'],
+    next: ['下一次不安的時候，先不要急著補故事。\n\n先問自己：我看到的是事實，還是我最害怕的版本？']
+  },
+  pressure: {
+    core: ['很多事情，根本沒有人要求你扛。\n\n是你自己不敢倒下。', '你不是不累。\n\n你只是太習慣說「我可以」。', '你最常安慰別人。\n\n但很少有人問你撐不撐得住。'],
+    stuck: ['你真正累的，是永遠都覺得自己還不夠好。', '你已經做很多了。\n\n只是你很少允許自己停下來。'],
+    pattern: ['別人沒想到的，你會先想到。\n\n別人沒收好的，你會默默補上。', '你很少開口說累。\n\n因為你覺得說了也沒用。'],
+    blind: ['你不用把自己累壞，才證明你有價值。', '不是每一件事，都該由你收尾。'],
+    strength: ['你很可靠。\n\n但可靠不代表要一直被消耗。', '你有把混亂整理好的能力。\n\n只是別再用這個能力困住自己。'],
+    next: ['接下來，少接一件不是非你不可的事。\n\n你不需要靠硬撐，證明你值得被信任。']
+  },
+  fog: {
+    core: ['你不是沒有方向。\n\n你只是對原本的生活，開始沒辦法再說服自己。', '你想往前。\n\n但又不知道哪一步才是真的。', '你不是停住。\n\n你是在重整。'],
+    stuck: ['最累的是，你知道自己想改變。\n\n卻不知道該從哪裡開始。', '你不是懶。\n\n你只是卡在太多可能性裡。'],
+    pattern: ['你會一直想，如果選錯怎麼辦。', '你常常等一個很明確的答案。\n\n但答案一直沒有出現。'],
+    blind: ['有些方向，不是想出來的。\n\n是走了才慢慢清楚。', '你不用一次變成新的自己。'],
+    strength: ['你其實很有轉換能力。\n\n只是現在還在過渡期。', '你不是崩壞。\n\n你是在更新。'],
+    next: ['先做一件小事就好。\n\n整理房間、完成一件小計畫、把作息拉回來。\n\n方向會從行動裡慢慢回來。']
+  },
+  suppressed: {
+    core: ['你很常說沒事。\n\n但其實根本不是沒事。', '很多話到了嘴邊。\n\n你最後還是吞回去。', '你不是沒情緒。\n\n你只是太會忍。'],
+    stuck: ['你最累的，是那些沒說出口的失望。', '你一直告訴自己算了。\n\n但心裡其實都有記得。'],
+    pattern: ['你看起來很穩。\n\n只是沒有人知道你裡面已經很亂。', '你不想造成別人的負擔。\n\n所以最後都變成自己的負擔。'],
+    blind: ['沉默不一定是成熟。\n\n有時候只是你太委屈自己。', '你不需要每一次都忍到沒感覺。'],
+    strength: ['你其實很能撐。\n\n但能撐，不代表應該一直撐。', '你的心很厚。\n\n只是也需要被好好放下來。'],
+    next: ['這 30 天，請你練習說一次「我不太舒服」。\n\n不是為了吵架。\n\n是為了讓自己被聽見。']
+  },
+  caretaker: {
+    core: ['你很會照顧別人的情緒。\n\n但很多時候，沒有人照顧你的。', '你嘴巴說沒關係。\n\n其實心裡已經有點失望。', '你很常先想到別人。\n\n最後才想到自己。'],
+    stuck: ['你累的不是付出。\n\n是付出了，卻沒有人真的看見。', '你不是不想拒絕。\n\n你只是怕對方失望。'],
+    pattern: ['你會把對方的感受排在前面。\n\n然後把自己的需要往後放。', '你很常替別人解釋。\n\n也很常替自己委屈。'],
+    blind: ['被需要，不等於被愛。', '真正好的關係，不會因為你少付出一點就散掉。'],
+    strength: ['你的溫柔是真的。\n\n但不要讓它變成委屈。', '你很懂人的脆弱。\n\n也該有人懂你的。'],
+    next: ['下次答應之前，先停三秒。\n\n問自己：我是真的想做，還是怕對方不高興？']
+  },
+  attachment: {
+    core: ['你不是要很多。\n\n你只是想被堅定地選擇。', '對方一忽冷忽熱。\n\n你就開始懷疑自己。', '你不是太黏。\n\n你只是太久沒有安心。'],
+    stuck: ['你放不下的，可能不是那個人。\n\n是那段關係裡，曾經讓你覺得自己值得被愛的感覺。', '你最怕的不是失去。\n\n是又一次證明自己沒有被放在心上。'],
+    pattern: ['你會假裝沒事。\n\n但其實一直在等對方給一個明確訊號。', '你很想靠近。\n\n又怕自己看起來太需要。'],
+    blind: ['不要用別人的回覆速度，判斷自己的價值。', '真正適合你的人，不會讓你一直靠猜。'],
+    strength: ['你其實很真誠。\n\n愛一個人的時候，也真的願意經營。', '你不是脆弱。\n\n你只是把關係看得很重。'],
+    next: ['把注意力拉回自己。\n\n問一句：我在這段關係裡，真的安心嗎？']
+  },
+  control: {
+    core: ['你不是愛控制。\n\n你只是很怕事情失控。', '只要有一點不確定。\n\n你心裡就很難放鬆。', '你常常想很多步。\n\n因為你不想讓自己措手不及。'],
+    stuck: ['你累的不是事情多。\n\n是你覺得每一件都不能出錯。', '你很難放心交給別人。\n\n因為你總覺得最後還是要自己收。'],
+    pattern: ['你會把細節整理好。\n\n也會把自己逼得很緊。', '你不是真的不能放鬆。\n\n是放鬆會讓你不安心。'],
+    blind: ['不完美，不一定會毀掉結果。', '你不用每一次都提前預防所有壞事。'],
+    strength: ['你很有秩序感。\n\n也很能把混亂拉回來。', '你的標準很高。\n\n只是別讓標準變成懲罰自己的方式。'],
+    next: ['選一件小事，讓它不用完美。\n\n你會發現，世界不會因此崩掉。']
+  },
+  defense: {
+    core: ['你看起來很冷靜。\n\n其實只是很怕受傷。', '你不是不在意。\n\n你只是很會裝得沒那麼在意。', '你不太快靠近人。\n\n因為你知道失望是什麼感覺。'],
+    stuck: ['你最累的，是明明在意，卻一直演得很淡。', '你把自己保護得很好。\n\n也把真正想靠近你的人擋在外面。'],
+    pattern: ['你會先觀察。\n\n再決定要不要打開自己。', '你常用理性把情緒蓋過去。\n\n但情緒其實沒有消失。'],
+    blind: ['保護自己沒有錯。\n\n但不要把自己關太久。', '不是每一個靠近你的人，都會傷害你。'],
+    strength: ['你很清醒。\n\n也很難被表面話術騙走。', '你的真誠很珍貴。\n\n因為你不是隨便給出去的人。'],
+    next: ['試著對一個安全的人，多說一點真話。\n\n不用全部打開。\n\n一點點就好。']
+  },
+  lonely: {
+    core: ['你不是不需要人。\n\n你只是太習慣一個人撐住。', '你很少麻煩別人。\n\n所以別人也很少知道你需要幫忙。', '你看得很清楚。\n\n所以也常常覺得很孤單。'],
+    stuck: ['你累的，是很多事都只能自己消化。', '你不是不想說。\n\n只是覺得說了也不一定有人懂。'],
+    pattern: ['你會保持距離。\n\n不是因為高傲，是因為不想再失望。', '你寧願安靜。\n\n也不想花力氣解釋自己。'],
+    blind: ['不是所有靠近，都是打擾。', '也許不是沒有人懂你。\n\n只是你太快把門關起來。'],
+    strength: ['你很獨立。\n\n也很有自己的判斷。', '你的清醒很珍貴。\n\n只是不要讓它變成孤立自己的牆。'],
+    next: ['這 30 天，試著讓一個人多看見你一點。\n\n不用很多。\n\n一點點就好。']
+  },
+  stability: {
+    core: ['你不是害怕改變。\n\n你只是需要慢一點。', '你很需要穩定。\n\n因為變動太快，心會先亂掉。', '你不是不想往前。\n\n你只是需要知道自己不會被丟下。'],
+    stuck: ['你累的，是一直在不確定裡找安全感。', '你不是太保守。\n\n你只是很怕一動，就失去現在僅有的穩。'],
+    pattern: ['你會先想後果。\n\n再決定要不要開始。', '你需要退路。\n\n不是因為膽小，是因為你想安心。'],
+    blind: ['未知不一定是危險。', '改變也可以很小，也可以很慢。'],
+    strength: ['你很能長期經營。\n\n只要找到節奏，就不容易放棄。', '你的穩定感，是很多人缺少的力量。'],
+    next: ['選一個很小的改變開始。\n\n小到不會害怕。\n\n但足夠讓你知道：我可以往前。']
+  }
 };
 
-let current=0;const answers=[];
-const hero=document.getElementById('hero');const quiz=document.getElementById('quiz');const loading=document.getElementById('loading');const result=document.getElementById('result');const questionCard=document.getElementById('questionCard');
-document.querySelector('[data-start]').addEventListener('click',()=>{hero.classList.add('hidden');quiz.classList.remove('hidden');renderQuestion()});
-document.querySelector('[data-prev]').addEventListener('click',()=>{if(current>0){current--;renderQuestion()}});
-document.querySelector('[data-restart]').addEventListener('click',()=>window.location.reload());
-document.querySelector('[data-download]').addEventListener('click',()=>{const element=document.getElementById('reportPaper');html2pdf().set({margin:10,filename:'anora-inner-map-report.pdf',image:{type:'jpeg',quality:.98},html2canvas:{scale:2},jsPDF:{unit:'mm',format:'a4',orientation:'portrait'}}).from(element).save()});
-function renderQuestion(){const q=questions[current];document.getElementById('stepLabel').innerText=`${current+1} / ${questions.length}`;document.getElementById('progressFill').style.width=`${((current+1)/questions.length)*100}%`;questionCard.innerHTML=`<h2>${q.title}</h2><div class="answers">${q.answers.map((a,i)=>`<button class="answer-btn" data-index="${i}">${a.text}</button>`).join('')}</div>`;document.querySelectorAll('.answer-btn').forEach((btn,index)=>{btn.addEventListener('click',()=>{answers[current]=q.answers[index].type;if(current<questions.length-1){current++;renderQuestion()}else{finishQuiz()}})})}
-function finishQuiz(){quiz.classList.add('hidden');loading.classList.remove('hidden');setTimeout(()=>{loading.classList.add('hidden');result.classList.remove('hidden');generateReport()},1800)}
-function generateReport(){const counts={};answers.forEach(a=>counts[a]=(counts[a]||0)+1);const dominant=Object.keys(counts).sort((a,b)=>counts[b]-counts[a])[0];const data=archetypes[dominant]||archetypes.sensitive;const pack=typeModules[dominant]||typeModules.sensitive;document.getElementById('archetypeName').innerText=data.name;document.getElementById('archetypeOneLiner').innerText=data.one;document.getElementById('reportSubtitle').innerText=`你的關鍵字：${data.keyword}。這份報告根據你的選擇路徑，整理你目前的內在狀態、消耗模式與接下來 30 天可以練習的方向。`;document.getElementById('reportDate').innerText=new Date().toLocaleDateString('zh-TW');document.getElementById('reportCode').innerText='Report #' + Math.random().toString(36).substring(2,8).toUpperCase();const reportSections=[{title:'一、你的核心人格狀態',text:data.tone+' '+pick(pack.consume)},{title:'二、你真正累的原因',text:pick(pack.consume)+' 這種累通常不是一天形成的，而是長期把注意力放在外界、責任或關係裡，慢慢累積出來的。你可能已經很習慣這樣運作，所以連自己正在被消耗都不一定會第一時間察覺。'},{title:'三、你在人際與關係裡的慣性',text:pick(pack.pattern)+' 你的反應模式不是錯，它曾經保護過你，也曾經讓你在很多情境裡撐下來。只是當同一套模式用太久，它就會從保護變成限制。'},{title:'四、你需要看見的盲點',text:pick(pack.blind)+' 這個盲點不是要否定你，而是提醒你：你現在遇到的卡住，可能不是能力問題，而是你一直用同一種方式面對所有問題。'},{title:'五、你被低估的優勢',text:pick(pack.strength)+' 你不需要急著變成另一種人，你真正需要的是把原本的特質用在更健康的位置。當你不再用自己的優勢傷害自己，那份特質就會重新變成力量。'},{title:'六、接下來 30 天的提醒',text:pick(pack.next)+' 這 30 天不需要做很大的改變，只需要開始停止一個舊習慣：停止把所有不安都解釋成自己的問題，停止把所有責任都往自己身上放，停止用硬撐證明自己值得。'},{title:'七、給現在的你',text:'你不需要立刻變好，也不需要馬上有答案。這份報告真正想提醒你的，是你可以開始把注意力收回自己身上。很多時候，人不是沒有方向，而是太久沒有安靜下來聽見自己的聲音。當你願意重新理解自己，你就已經在往新的狀態移動。'}];document.getElementById('reportContent').innerHTML=reportSections.map(section=>`<section><h4>${section.title}</h4><p>${section.text}</p></section>`).join('')}
-function pick(arr){return arr[Math.floor(Math.random()*arr.length)]}
+let current = 0;
+const answers = [];
+const hero = document.getElementById('hero');
+const quiz = document.getElementById('quiz');
+const loading = document.getElementById('loading');
+const result = document.getElementById('result');
+const questionCard = document.getElementById('questionCard');
+
+document.querySelector('[data-start]').addEventListener('click', () => {
+  hero.classList.add('hidden');
+  quiz.classList.remove('hidden');
+  renderQuestion();
+});
+
+document.querySelector('[data-prev]').addEventListener('click', () => {
+  if (current > 0) {
+    current--;
+    renderQuestion();
+  }
+});
+
+document.querySelector('[data-restart]').addEventListener('click', () => window.location.reload());
+
+document.querySelector('[data-download]').addEventListener('click', () => {
+  const element = document.getElementById('reportPaper');
+  html2pdf().set({
+    margin: 10,
+    filename: 'anora-inner-map-report.pdf',
+    image: { type: 'jpeg', quality: .98 },
+    html2canvas: { scale: 2 },
+    jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+  }).from(element).save();
+});
+
+function renderQuestion() {
+  const q = questions[current];
+  document.getElementById('stepLabel').innerText = `${current + 1} / ${questions.length}`;
+  document.getElementById('progressFill').style.width = `${((current + 1) / questions.length) * 100}%`;
+  questionCard.innerHTML = `<h2>${q.title}</h2><div class="answers">${q.answers.map((a, i) => `<button class="answer-btn" data-index="${i}">${a.text}</button>`).join('')}</div>`;
+  document.querySelectorAll('.answer-btn').forEach((btn, index) => {
+    btn.addEventListener('click', () => {
+      answers[current] = q.answers[index].type;
+      if (current < questions.length - 1) {
+        current++;
+        renderQuestion();
+      } else {
+        finishQuiz();
+      }
+    });
+  });
+}
+
+function finishQuiz() {
+  quiz.classList.add('hidden');
+  loading.classList.remove('hidden');
+  setTimeout(() => {
+    loading.classList.add('hidden');
+    result.classList.remove('hidden');
+    generateReport();
+  }, 1500);
+}
+
+function generateReport() {
+  const counts = {};
+  answers.forEach(a => counts[a] = (counts[a] || 0) + 1);
+  const dominant = Object.keys(counts).sort((a, b) => counts[b] - counts[a])[0];
+  const data = archetypes[dominant] || archetypes.sensitive;
+  const pack = typeModules[dominant] || typeModules.sensitive;
+
+  document.getElementById('archetypeName').innerText = data.name;
+  document.getElementById('archetypeOneLiner').innerText = data.one;
+  document.getElementById('reportSubtitle').innerText = `關鍵字：${data.keyword}`;
+  document.getElementById('reportDate').innerText = new Date().toLocaleDateString('zh-TW');
+  document.getElementById('reportCode').innerText = 'Report #' + Math.random().toString(36).substring(2, 8).toUpperCase();
+
+  const sections = [
+    { title: '你的核心狀態', text: pick(pack.core) },
+    { title: '你最近真正卡住的地方', text: pick(pack.stuck) },
+    { title: '你在人際裡的樣子', text: pick(pack.pattern) },
+    { title: '你需要看見的一句話', text: pick(pack.blind) },
+    { title: '你不是沒有力量', text: pick(pack.strength) },
+    { title: '接下來 30 天', text: pick(pack.next) },
+    { title: '給現在的你', text: '你不用立刻變好。\n\n也不用馬上有答案。\n\n先把自己放回來。\n\n這就已經是開始。' }
+  ];
+
+  document.getElementById('reportContent').innerHTML = sections.map(section => `
+    <section>
+      <h4>${section.title}</h4>
+      <p>${section.text.replace(/\n/g, '<br>')}</p>
+    </section>
+  `).join('');
+}
+
+function pick(arr) {
+  return arr[Math.floor(Math.random() * arr.length)];
+}
