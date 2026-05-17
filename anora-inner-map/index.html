@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>anōra Inner Map｜內在狀態人格報告</title>
+  <meta name="description" content="用幾個直覺選擇，看見你最近真正卡住的內在狀態。" />
+  <link rel="stylesheet" href="./styles.css" />
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <script defer src="./app.js"></script>
+</head>
+<body>
+  <main class="app-shell">
+    <section id="hero" class="panel hero-panel">
+      <div class="brand-mark">anōra Inner Map</div>
+      <p class="eyebrow">免費互動人格報告</p>
+      <h1>你最近真正累的，可能不是表面那件事。</h1>
+      <p class="hero-copy">透過直覺選擇與狀態分析，整理你此刻的內在消耗、慣性模式與接下來 30 天的提醒。</p>
+      <div class="trust-list">
+        <span>不需登入</span>
+        <span>不需付款</span>
+        <span>可下載 PDF</span>
+      </div>
+      <button class="primary-btn" data-start>開始測驗</button>
+    </section>
+
+    <section id="quiz" class="panel quiz-panel hidden">
+      <div class="progress-wrap">
+        <div class="progress-meta"><span id="stepLabel">1 / 10</span><span id="progressText">直覺選擇</span></div>
+        <div class="progress-bar"><div id="progressFill"></div></div>
+      </div>
+      <div id="questionCard" class="question-card"></div>
+      <div class="nav-row">
+        <button class="ghost-btn" data-prev>上一題</button>
+      </div>
+    </section>
+
+    <section id="loading" class="panel loading-panel hidden">
+      <div class="loader"></div>
+      <h2>正在整理你的內在狀態</h2>
+      <p>系統會根據你的選擇路徑，組合出一份專屬的免費報告。</p>
+    </section>
+
+    <section id="result" class="panel result-panel hidden">
+      <div class="result-actions no-print">
+        <button class="ghost-btn" data-restart>重新測驗</button>
+        <button class="primary-btn" data-download>下載 PDF</button>
+      </div>
+
+      <article id="reportPaper" class="report-paper">
+        <header class="report-header">
+          <p class="report-brand">anōra Inner Map</p>
+          <h2 id="reportTitle">內在狀態人格報告</h2>
+          <p id="reportSubtitle" class="report-subtitle"></p>
+          <div class="report-meta">
+            <span id="reportDate"></span>
+            <span id="reportCode"></span>
+          </div>
+        </header>
+
+        <section class="summary-card">
+          <p class="label">你的狀態類型</p>
+          <h3 id="archetypeName"></h3>
+          <p id="archetypeOneLiner"></p>
+        </section>
+
+        <div id="reportContent" class="report-content"></div>
+
+        <section class="brand-bridge">
+          <p class="label">延伸提醒</p>
+          <h3>把這份理解，變成每天看得見的提醒。</h3>
+          <p>如果這份報告有說中你，歡迎追蹤 anōra。後續我們會把不同內在狀態，整理成更完整的日常陪伴與能量物件提案。</p>
+          <div class="cta-row no-print">
+            <a id="igLink" class="secondary-link" href="https://www.instagram.com/" target="_blank" rel="noreferrer">追蹤 IG</a>
+            <a id="shopLink" class="secondary-link" href="https://shopee.tw/" target="_blank" rel="noreferrer">前往蝦皮</a>
+          </div>
+        </section>
+      </article>
+    </section>
+  </main>
+</body>
+</html>
