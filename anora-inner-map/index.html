@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>anōra Inner Map｜內在狀態人格報告</title>
-  <meta name="description" content="用幾個直覺選擇，看見你最近真正卡住的內在狀態。" />
+  <meta name="description" content="用幾個生活切片選擇，看見你最近真正卡住的內在狀態。" />
   <link rel="stylesheet" href="./styles.css" />
   <script defer src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
   <script defer src="./app.js"></script>
@@ -12,10 +12,23 @@
 <body>
   <main class="app-shell">
     <section id="hero" class="panel hero-panel">
-      <div class="brand-mark">anōra Inner Map</div>
+      <div class="hero-topline">STUDIO & STORE</div>
+      <div class="brand-word">anōra</div>
+      <div class="gold-divider"></div>
+      <div class="brand-emblem" aria-hidden="true">
+        <svg viewBox="0 0 160 190" role="img">
+          <path class="emblem-gold" d="M80 8c40 0 66 28 66 71v28c0 48-28 76-66 76s-66-28-66-76V79C14 36 40 8 80 8Z"/>
+          <path class="emblem-green" d="M80 21c31 0 51 22 51 57v29c0 38-21 60-51 60s-51-22-51-60V78c0-35 20-57 51-57Z"/>
+          <path class="emblem-line" d="M44 66c10-18 24-28 36-28s26 10 36 28"/>
+          <path class="emblem-line" d="M35 91c12-21 28-33 45-33s33 12 45 33"/>
+          <path class="emblem-line" d="M34 119c13 18 28 27 46 27s33-9 46-27"/>
+          <path class="emblem-cream" d="M80 51 104 82 80 130 56 82 80 51Z"/>
+          <path class="emblem-green-line" d="M80 51v79M56 82l24 18 24-18"/>
+        </svg>
+      </div>
       <p class="eyebrow">免費互動人格報告</p>
       <h1>你最近真正累的，可能不是表面那件事。</h1>
-      <p class="hero-copy">透過直覺選擇與狀態分析，整理你此刻的內在消耗、慣性模式與接下來 30 天的提醒。</p>
+      <p class="hero-copy">用幾個生活切片選擇，整理你此刻的內在消耗、反覆出現的狀態，以及接下來 30 天可以先放回自己的地方。</p>
       <div class="trust-list">
         <span>不需登入</span>
         <span>不需付款</span>
@@ -26,7 +39,7 @@
 
     <section id="quiz" class="panel quiz-panel hidden">
       <div class="progress-wrap">
-        <div class="progress-meta"><span id="stepLabel">1 / 10</span><span id="progressText">直覺選擇</span></div>
+        <div class="progress-meta"><span id="stepLabel">1 / 8</span><span id="progressText">生活切片選擇</span></div>
         <div class="progress-bar"><div id="progressFill"></div></div>
       </div>
       <div id="questionCard" class="question-card"></div>
@@ -67,7 +80,7 @@
         <div id="reportContent" class="report-content"></div>
 
         <section class="brand-bridge">
-          <p class="label">延伸提醒</p>
+          <p class="label">anōra reminder</p>
           <h3>把這份理解，變成每天看得見的提醒。</h3>
           <p>如果這份報告有說中你，歡迎追蹤 anōra。後續我們會把不同內在狀態，整理成更完整的日常陪伴與能量物件提案。</p>
           <div class="cta-row no-print">
