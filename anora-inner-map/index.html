@@ -10,86 +10,93 @@
   <script defer src="./app.js"></script>
 </head>
 <body>
-  <main class="app-shell">
-    <section id="hero" class="panel hero-panel">
-      <div class="hero-topline">STUDIO & STORE</div>
-      <div class="brand-word">anōra</div>
-      <div class="gold-divider"></div>
-      <div class="brand-emblem" aria-hidden="true">
-        <svg viewBox="0 0 160 190" role="img">
-          <path class="emblem-gold" d="M80 8c40 0 66 28 66 71v28c0 48-28 76-66 76s-66-28-66-76V79C14 36 40 8 80 8Z"/>
-          <path class="emblem-green" d="M80 21c31 0 51 22 51 57v29c0 38-21 60-51 60s-51-22-51-60V78c0-35 20-57 51-57Z"/>
-          <path class="emblem-line" d="M44 66c10-18 24-28 36-28s26 10 36 28"/>
-          <path class="emblem-line" d="M35 91c12-21 28-33 45-33s33 12 45 33"/>
-          <path class="emblem-line" d="M34 119c13 18 28 27 46 27s33-9 46-27"/>
-          <path class="emblem-cream" d="M80 51 104 82 80 130 56 82 80 51Z"/>
-          <path class="emblem-green-line" d="M80 51v79M56 82l24 18 24-18"/>
-        </svg>
+  <main class="site-shell">
+    <section id="hero" class="hero">
+      <nav class="site-nav">
+        <a class="nav-brand" href="#hero" aria-label="anōra">
+          <span class="brand-symbol">◇</span>
+          <span>anōra</span>
+        </a>
+        <div class="nav-links">
+          <a href="#about">關於 anōra</a>
+          <a href="#features">測驗特色</a>
+          <a href="#links">品牌連結</a>
+          <button class="nav-btn" data-start>開始測驗</button>
+        </div>
+      </nav>
+
+      <div class="hero-grid">
+        <div class="hero-copy-block">
+          <h1>你的內在地圖，<br>藏著你沒說出口的自己。</h1>
+          <div class="small-line"></div>
+          <p>透過幾個生活切片選擇，看見你最近的狀態、反覆卡住的地方，與內心最真實的聲音。</p>
+          <button class="primary-btn" data-start>開始測驗 <span>→</span></button>
+          <div class="trust-note">⌁ 測驗完全免費，結果將保密不公開</div>
+        </div>
+
+        <div class="hero-visual" aria-hidden="true">
+          <div class="logo-orb">
+            <div class="orb-ring ring-a"></div>
+            <div class="orb-ring ring-b"></div>
+            <div class="orb-ring ring-c"></div>
+            <div class="crystal-mark">◇</div>
+            <div class="orb-caption">STUDIO & STORE</div>
+          </div>
+          <div class="flow-lines"></div>
+          <div class="stone stone-a"></div>
+          <div class="stone stone-b"></div>
+          <div class="candle"></div>
+        </div>
       </div>
-      <p class="eyebrow">免費互動人格報告</p>
-      <h1>你最近真正累的，可能不是表面那件事。</h1>
-      <p class="hero-copy">用幾個生活切片選擇，整理你此刻的內在消耗、反覆出現的狀態，以及接下來 30 天可以先放回自己的地方。</p>
-      <div class="trust-list">
-        <span>不需登入</span>
-        <span>不需付款</span>
-        <span>可下載 PDF</span>
+    </section>
+
+    <section id="features" class="feature-section">
+      <h2>這份測驗，為你而設計</h2>
+      <div class="title-line"></div>
+      <div class="feature-grid">
+        <article class="feature-card"><div class="feature-icon">☘</div><h3>貼近日常</h3><p>題目來自真實生活情境，更容易看見自己的狀態。</p></article>
+        <article class="feature-card"><div class="feature-icon">◇</div><h3>深度解讀</h3><p>短句直擊、不說教，像朋友一樣懂你。</p></article>
+        <article class="feature-card"><div class="feature-icon">⌁</div><h3>專屬地圖</h3><p>生成你的內在地圖，看見你的能量分佈。</p></article>
+        <article class="feature-card"><div class="feature-icon">♡</div><h3>溫柔陪伴</h3><p>給現在的你一些理解，也給未來的你一點力量。</p></article>
       </div>
-      <button class="primary-btn" data-start>開始測驗</button>
+    </section>
+
+    <section class="cta-band">
+      <div class="cta-image"><span>anōra</span><i>◇</i></div>
+      <div class="cta-copy">
+        <h2>準備好遇見更懂你的自己了嗎？</h2>
+        <div class="small-line"></div>
+        <p>你的感受很重要。給自己 5 分鐘，開始這段內在探索的旅程。</p>
+        <button class="primary-btn" data-start>開始測驗 <span>→</span></button>
+      </div>
+      <div class="botanical-line">⌁</div>
+    </section>
+
+    <section id="links" class="link-section">
+      <div><h2>探索更多療癒選物</h2><p>anōra 精選水晶與療癒小物，陪伴你在生活中找回平衡能量。</p></div>
+      <a class="link-card" href="https://www.instagram.com/anora___shop?igsh=bW5nanM3bTd5d21s" target="_blank" rel="noreferrer"><span class="link-icon">◎</span><span><strong>追蹤 Instagram</strong><small>@anora___shop</small></span><b>→</b></a>
+      <a class="link-card" href="https://tw.shp.ee/Y3zJZGhf" target="_blank" rel="noreferrer"><span class="link-icon">S</span><span><strong>逛逛蝦皮賣場</strong><small>anōra｜水晶・能量・療癒選物</small></span><b>→</b></a>
     </section>
 
     <section id="quiz" class="panel quiz-panel hidden">
-      <div class="progress-wrap">
-        <div class="progress-meta"><span id="stepLabel">1 / 8</span><span id="progressText">生活切片選擇</span></div>
-        <div class="progress-bar"><div id="progressFill"></div></div>
-      </div>
+      <div class="progress-wrap"><div class="progress-meta"><span id="stepLabel">1 / 8</span><span id="progressText">生活切片選擇</span></div><div class="progress-bar"><div id="progressFill"></div></div></div>
       <div id="questionCard" class="question-card"></div>
-      <div class="nav-row">
-        <button class="ghost-btn" data-prev>上一題</button>
-      </div>
+      <div class="nav-row"><button class="ghost-btn" data-prev>上一題</button></div>
     </section>
 
-    <section id="loading" class="panel loading-panel hidden">
-      <div class="loader"></div>
-      <h2>正在整理你的內在狀態</h2>
-      <p>系統會根據你的選擇路徑，組合出一份專屬的免費報告。</p>
-    </section>
+    <section id="loading" class="panel loading-panel hidden"><div class="loader"></div><h2>正在整理你的內在狀態</h2><p>系統會根據你的選擇路徑，組合出一份專屬的免費報告。</p></section>
 
     <section id="result" class="panel result-panel hidden">
-      <div class="result-actions no-print">
-        <button class="ghost-btn" data-restart>重新測驗</button>
-        <button class="primary-btn" data-download>下載 PDF</button>
-      </div>
-
+      <div class="result-actions no-print"><button class="ghost-btn" data-restart>重新測驗</button><button class="primary-btn" data-download>下載 PDF</button></div>
       <article id="reportPaper" class="report-paper">
-        <header class="report-header">
-          <p class="report-brand">anōra Inner Map</p>
-          <h2 id="reportTitle">內在狀態人格報告</h2>
-          <p id="reportSubtitle" class="report-subtitle"></p>
-          <div class="report-meta">
-            <span id="reportDate"></span>
-            <span id="reportCode"></span>
-          </div>
-        </header>
-
-        <section class="summary-card">
-          <p class="label">你的狀態類型</p>
-          <h3 id="archetypeName"></h3>
-          <p id="archetypeOneLiner"></p>
-        </section>
-
+        <header class="report-header"><p class="report-brand">anōra Inner Map</p><h2 id="reportTitle">內在狀態人格報告</h2><p id="reportSubtitle" class="report-subtitle"></p><div class="report-meta"><span id="reportDate"></span><span id="reportCode"></span></div></header>
+        <section class="summary-card"><p class="label">你的狀態類型</p><h3 id="archetypeName"></h3><p id="archetypeOneLiner"></p></section>
         <div id="reportContent" class="report-content"></div>
-
-        <section class="brand-bridge">
-          <p class="label">anōra reminder</p>
-          <h3>把這份理解，變成每天看得見的提醒。</h3>
-          <p>如果這份報告有說中你，歡迎追蹤 anōra。後續我們會把不同內在狀態，整理成更完整的日常陪伴與能量物件提案。</p>
-          <div class="cta-row no-print">
-            <a id="igLink" class="secondary-link" href="https://www.instagram.com/anora___shop?igsh=bW5nanM3bTd5d21s" target="_blank" rel="noreferrer">追蹤 IG</a>
-            <a id="shopLink" class="secondary-link" href="https://tw.shp.ee/Y3zJZGhf" target="_blank" rel="noreferrer">前往蝦皮</a>
-          </div>
-        </section>
+        <section class="brand-bridge"><p class="label">anōra reminder</p><h3>把這份理解，變成每天看得見的提醒。</h3><p>如果這份報告有說中你，歡迎追蹤 anōra。後續我們會把不同內在狀態，整理成更完整的日常陪伴與能量物件提案。</p><div class="cta-row no-print"><a id="igLink" class="secondary-link" href="https://www.instagram.com/anora___shop?igsh=bW5nanM3bTd5d21s" target="_blank" rel="noreferrer">追蹤 IG</a><a id="shopLink" class="secondary-link" href="https://tw.shp.ee/Y3zJZGhf" target="_blank" rel="noreferrer">前往蝦皮</a></div></section>
       </article>
     </section>
+
+    <footer class="site-footer"><span>anōra<br><small>STUDIO & STORE</small></span><small>© 2026 anōra Studio & Store. All Rights Reserved.</small><small>Designed with ♡ by anōra</small></footer>
   </main>
 </body>
 </html>
