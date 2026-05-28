@@ -182,9 +182,33 @@ function generateReport() {
   $('#reportContent').innerHTML = sections.map(section => `<section><h4>${section.title}</h4><p>${section.text.replace(/\n/g, '<br>')}</p></section>`).join('');
 }
 
-function downloadStoryImage() {
+async function downloadStoryImage() {
   if (!latestReport) generateReport();
-  const { data, sections } = latestReport;
+  const canvas = buildStoryCanvas(latestReport);
+  const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/png', 1));
+  if (!blob) return fallbackDownload(canvas);
+
+  const file = new File([blob], 'anora-inner-map-story.png', { type: 'image/png' });
+  const sharePayload = {
+    title: 'anōra Inner Map',
+    text: '我的 anōra 內在狀態人格報告',
+    files: [file]
+  };
+
+  if (navigator.share && (!navigator.canShare || navigator.canShare({ files: [file] }))) {
+    try {
+      await navigator.share(sharePayload);
+      return;
+    } catch (error) {
+      if (error && error.name === 'AbortError') return;
+    }
+  }
+
+  fallbackDownload(canvas);
+}
+
+function buildStoryCanvas(report) {
+  const { data, sections } = report;
   const canvas = document.createElement('canvas');
   canvas.width = 1080;
   canvas.height = 1920;
@@ -220,35 +244,39 @@ function downloadStoryImage() {
   ctx.fillRect(104, 245, 72, 5);
 
   ctx.fillStyle = cream;
-  ctx.font = '700 64px -apple-system, BlinkMacSystemFont, "PingFang TC", sans-serif';
-  wrapText(ctx, data.name, 104, 345, 860, 78);
+  ctx.font = '700 60px -apple-system, BlinkMacSystemFont, "PingFang TC", sans-serif';
+  wrapText(ctx, data.name, 104, 330, 860, 72);
 
   ctx.fillStyle = muted;
-  ctx.font = '500 34px -apple-system, BlinkMacSystemFont, "PingFang TC", sans-serif';
-  wrapText(ctx, data.one, 104, 465, 860, 50);
+  ctx.font = '500 31px -apple-system, BlinkMacSystemFont, "PingFang TC", sans-serif';
+  wrapText(ctx, data.one, 104, 440, 860, 46);
 
   ctx.fillStyle = 'rgba(200,152,103,0.15)';
-  roundedRect(ctx, 104, 610, 872, 1030, 34);
+  roundedRect(ctx, 104, 575, 872, 1090, 34);
   ctx.fill();
 
-  let y = 680;
-  sections.slice(0, 6).forEach((section) => {
+  let y = 640;
+  sections.forEach((section) => {
     ctx.fillStyle = gold;
-    ctx.font = '700 25px -apple-system, BlinkMacSystemFont, "PingFang TC", sans-serif';
-    y = wrapText(ctx, section.title, 142, y, 796, 34) + 10;
+    ctx.font = '700 23px -apple-system, BlinkMacSystemFont, "PingFang TC", sans-serif';
+    y = wrapText(ctx, section.title, 142, y, 796, 31) + 6;
     ctx.fillStyle = cream;
-    ctx.font = '500 29px -apple-system, BlinkMacSystemFont, "PingFang TC", sans-serif';
+    ctx.font = '500 26px -apple-system, BlinkMacSystemFont, "PingFang TC", sans-serif';
     const compact = section.text.replace(/\n+/g, ' ');
-    y = wrapText(ctx, compact, 142, y, 796, 42) + 34;
+    y = wrapText(ctx, compact, 142, y, 796, 37) + 22;
   });
 
   ctx.fillStyle = cream;
-  ctx.font = '600 30px -apple-system, BlinkMacSystemFont, "PingFang TC", sans-serif';
-  wrapText(ctx, '如果這份報告有說中你，歡迎分享到限動，標記 @anora___shop。', 104, 1720, 872, 42);
+  ctx.font = '600 28px -apple-system, BlinkMacSystemFont, "PingFang TC", sans-serif';
+  wrapText(ctx, '如果這份報告有說中你，歡迎分享到限動，標記 @anora___shop。', 104, 1745, 872, 40);
   ctx.fillStyle = gold;
-  ctx.font = '500 24px -apple-system, BlinkMacSystemFont, "PingFang TC", sans-serif';
-  ctx.fillText('anōra Studio & Store｜水晶・能量・療癒選物', 104, 1820);
+  ctx.font = '500 23px -apple-system, BlinkMacSystemFont, "PingFang TC", sans-serif';
+  ctx.fillText('anōra Studio & Store｜水晶・能量・療癒選物', 104, 1835);
 
+  return canvas;
+}
+
+function fallbackDownload(canvas) {
   const link = document.createElement('a');
   link.download = 'anora-inner-map-story.png';
   link.href = canvas.toDataURL('image/png');
