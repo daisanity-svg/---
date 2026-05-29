@@ -1,1 +1,360 @@
-(()=>{let storyBlob=null;let storyFile=null;let storyDataUrl='';let lastSignature='';function $(s){return document.querySelector(s)}function $all(s){return Array.from(document.querySelectorAll(s))}const PALETTES=[{name:'warm cream',bg:'#F4EEE4',ink:'#2F473A',soft:'#DCD5C8',muted:'#6D7568',accent:'#B89263',panel:'#E7E0D3'},{name:'linen sage',bg:'#EFEBDD',ink:'#344A3C',soft:'#D8D8C9',muted:'#697265',accent:'#A8895F',panel:'#DFDFD0'},{name:'milk tea',bg:'#F1E8DC',ink:'#3B493B',soft:'#DED1C1',muted:'#70665A',accent:'#AE865F',panel:'#E4D6C5'},{name:'mist olive',bg:'#ECEBDF',ink:'#31483E',soft:'#D3D8CC',muted:'#657166',accent:'#A58B63',panel:'#DDE1D4'},{name:'paper green',bg:'#F6F0E6',ink:'#284337',soft:'#E0D8CA',muted:'#657064',accent:'#BE9565',panel:'#EAE2D5'},{name:'soft stone',bg:'#EEE8DE',ink:'#33453C',soft:'#D7D1C8',muted:'#6B6D64',accent:'#A99068',panel:'#E2DCD2'}];const COPY={'反覆重播型':{headline:'你不是想太多，\n你只是太容易被細節留下。',sub:'最近的你，常常被一句話、一個語氣，拖進很長的反覆思考裡。',strengthTitle:'你的內在力量',strength:'敏感、細膩、很會感受他人，也能看見別人忽略的情緒縫隙。'},'硬撐責任型':{headline:'你不是不累，\n你只是太習慣自己撐住。',sub:'最近的你，明明已經很滿，卻還是下意識把事情接過來。',strengthTitle:'你的內在力量',strength:'可靠、負責、穩定，能在混亂裡把事情慢慢整理回來。'},'卡在轉彎型':{headline:'你不是沒有方向，\n你只是正在離開舊的自己。',sub:'最近的你，知道不能再照以前那樣過，卻還沒找到新的步伐。',strengthTitle:'你的內在力量',strength:'有覺察、有更新能力，也願意在不確定裡重新理解自己。'},'把話吞回去型':{headline:'你不是沒情緒，\n你只是太常把話吞回去。',sub:'最近的你，很多時候說沒事，其實只是還沒有人讓你安心說真話。',strengthTitle:'你的內在力量',strength:'能忍、能體諒、很懂分寸，但也值得被好好聽見。'},'先顧別人型':{headline:'你不是太懂事，\n你只是太少把自己放前面。',sub:'最近的你，總是先照顧別人的感受，才回頭處理自己的委屈。',strengthTitle:'你的內在力量',strength:'溫柔、共感力強，能讓人安心，也很適合成為穩定的陪伴。'},'等一個確定型':{headline:'你不是要很多，\n你只是想被堅定放在心上。',sub:'最近的你，常常在等一個回應，也在等自己終於可以安心。',strengthTitle:'你的內在力量',strength:'真誠、深情、願意投入，只是需要把安全感慢慢拿回自己手裡。'},'怕失控預演型':{headline:'你不是愛控制，\n你只是太怕事情突然壞掉。',sub:'最近的你，常常先把最壞的情況想完，才敢讓自己放鬆一點。',strengthTitle:'你的內在力量',strength:'細心、能規劃、能預判風險，也擁有把日子安定下來的能力。'},'假裝不在意型':{headline:'你不是冷淡，\n你只是太久沒有被好好理解。',sub:'最近的你，習慣先消化情緒，再假裝自己沒事。',strengthTitle:'你的內在力量',strength:'清醒、敏銳、有界線，也比自己以為的更渴望被支持。'},'安靜消化型':{headline:'你不是不需要人，\n你只是太習慣自己消化。',sub:'最近的你，看起來很安靜，其實心裡處理了很多沒有說出口的事。',strengthTitle:'你的內在力量',strength:'獨立、清醒、有自己的節奏，也擁有慢慢修復自己的能力。'},'慢慢安心型':{headline:'你不是害怕改變，\n你只是需要慢慢安心。',sub:'最近的你，不是不想往前，而是需要先確認自己不會再被丟下。',strengthTitle:'你的內在力量',strength:'穩定、耐心、能長期經營，也能把重要的事慢慢守住。'}};document.addEventListener('click',()=>{},true);
+(() => {
+  const $ = s => document.querySelector(s);
+
+  let lastSignature = '';
+
+  const COPY = {
+    '硬撐責任型': {
+      title: '你不是不累。\n你只是太習慣把事情扛起來。',
+      sub: '最近的你，很多事情沒有人叫你扛，\n但你就是放不下。',
+      power: '可靠、穩定、責任感強，\n也正在學習把自己留下來。'
+    },
+
+    '假裝不在意型': {
+      title: '你不是冷淡。\n你只是太久沒有被好好理解。',
+      sub: '最近的你，\n習慣先消化情緒，\n再假裝自己沒事。',
+      power: '清醒、敏銳、有界線，\n也比自己以為的更需要支持。'
+    },
+
+    '反覆重播型': {
+      title: '你不是想太多。\n你只是太容易被細節留下。',
+      sub: '最近的你，常常被一句話、一個語氣，\n拖進很長的反覆思考裡。',
+      power: '敏感、細膩、共感力強，\n也能看見別人忽略的情緒。'
+    }
+  };
+
+  function isVisible() {
+    const result = $('#result');
+    return result && !result.classList.contains('hidden');
+  }
+
+  function getSignature() {
+    return (
+      ($('#archetypeName')?.innerText || '') +
+      ($('#reportContent')?.innerText || '')
+    );
+  }
+
+  function getCopy() {
+    const type = $('#archetypeName')?.innerText.trim() || '';
+
+    return (
+      COPY[type] || {
+        title: '你的內在地圖。\n正在慢慢展開。',
+        sub: '最近的你，正在學會\n用更誠實的方式理解自己。',
+        power: '敏感、真誠、願意面對自己，\n也正在慢慢回到穩定。'
+      }
+    );
+  }
+
+  function renderCard() {
+    if (!isVisible()) return;
+
+    const sig = getSignature();
+
+    if (!sig || sig === lastSignature) return;
+
+    lastSignature = sig;
+
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+
+    canvas.width = 1080;
+    canvas.height = 1920;
+
+    const bg = '#F4EEE4';
+    const ink = '#2F473A';
+    const panel = '#E5DFD2';
+
+    ctx.fillStyle = bg;
+    ctx.fillRect(0, 0, 1080, 1920);
+
+    const grad = ctx.createLinearGradient(0, 0, 1080, 1920);
+
+    grad.addColorStop(0, 'rgba(255,255,255,.25)');
+    grad.addColorStop(1, 'rgba(47,71,58,.05)');
+
+    ctx.fillStyle = grad;
+    ctx.fillRect(0, 0, 1080, 1920);
+
+    ctx.strokeStyle = ink;
+    ctx.globalAlpha = .35;
+    ctx.lineWidth = 1.3;
+
+    ctx.beginPath();
+    ctx.moveTo(82, 115);
+    ctx.lineTo(82, 1785);
+    ctx.stroke();
+
+    ctx.globalAlpha = 1;
+
+    ctx.fillStyle = ink;
+
+    ctx.fillRect(76, 450, 12, 118);
+
+    ctx.font = '400 62px Georgia';
+
+    ctx.fillText('anōra', 160, 175);
+
+    ctx.font = '400 27px Georgia';
+
+    ctx.fillText('I N N E R   M A P', 160, 225);
+
+    const copy = getCopy();
+
+    ctx.font = '700 72px PingFang TC';
+
+    multiline(
+      ctx,
+      copy.title,
+      160,
+      520,
+      800,
+      106
+    );
+
+    ctx.strokeStyle = ink;
+    ctx.globalAlpha = .45;
+    ctx.lineWidth = 2;
+
+    ctx.beginPath();
+
+    ctx.moveTo(160, 860);
+    ctx.lineTo(335, 860);
+
+    ctx.stroke();
+
+    ctx.globalAlpha = 1;
+
+    ctx.font = '400 40px PingFang TC';
+
+    multiline(
+      ctx,
+      copy.sub,
+      160,
+      960,
+      730,
+      64
+    );
+
+    ctx.fillStyle = panel;
+
+    roundRect(
+      ctx,
+      150,
+      1370,
+      780,
+      210,
+      24
+    );
+
+    ctx.fill();
+
+    ctx.fillStyle = ink;
+
+    ctx.font = '500 38px PingFang TC';
+
+    ctx.fillText(
+      '你的內在力量',
+      410,
+      1446
+    );
+
+    ctx.font = '400 28px PingFang TC';
+
+    multiline(
+      ctx,
+      copy.power,
+      410,
+      1492,
+      430,
+      42
+    );
+
+    ctx.font = '400 30px Georgia';
+
+    ctx.fillText(
+      'anōra INNER MAP',
+      160,
+      1730
+    );
+
+    ctx.font = '400 27px PingFang TC';
+
+    ctx.fillText(
+      '陪你看見內在的真實地圖',
+      160,
+      1785
+    );
+
+    const url = canvas.toDataURL('image/png');
+
+    let wrap = $('#storyCardWrap');
+
+    if (!wrap) {
+      wrap = document.createElement('div');
+
+      wrap.id = 'storyCardWrap';
+
+      wrap.style.cssText =
+        'max-width:420px;margin:0 auto 24px;text-align:center;';
+
+      wrap.innerHTML = `
+        <img
+          id="storyCardImg"
+          style="
+            width:100%;
+            border-radius:22px;
+            box-shadow:0 18px 48px rgba(0,0,0,.16);
+          "
+        >
+
+        <p style="
+          margin:12px 0 0;
+          color:#f3e6de;
+          font-size:14px;
+          opacity:.85;
+        ">
+          長按圖片即可儲存
+        </p>
+      `;
+
+      $('#reportPaper')
+        ?.parentNode
+        ?.insertBefore(wrap, $('#reportPaper'));
+    }
+
+    $('#storyCardImg').src = url;
+
+    const paper = $('#reportPaper');
+
+    if (paper) {
+      paper.style.display = 'none';
+    }
+  }
+
+  function multiline(
+    ctx,
+    text,
+    x,
+    y,
+    maxWidth,
+    lineHeight
+  ) {
+    let currentY = y;
+
+    String(text)
+      .split('\n')
+      .forEach(line => {
+        currentY = wrap(
+          ctx,
+          line,
+          x,
+          currentY,
+          maxWidth,
+          lineHeight
+        );
+      });
+  }
+
+  function wrap(
+    ctx,
+    text,
+    x,
+    y,
+    maxWidth,
+    lineHeight
+  ) {
+    let line = '';
+    let currentY = y;
+
+    for (const ch of text) {
+      const test = line + ch;
+
+      if (
+        ctx.measureText(test).width > maxWidth &&
+        line
+      ) {
+        ctx.fillText(line, x, currentY);
+
+        line = ch;
+
+        currentY += lineHeight;
+      } else {
+        line = test;
+      }
+    }
+
+    if (line) {
+      ctx.fillText(line, x, currentY);
+    }
+
+    return currentY + lineHeight;
+  }
+
+  function roundRect(
+    ctx,
+    x,
+    y,
+    width,
+    height,
+    radius
+  ) {
+    ctx.beginPath();
+
+    ctx.moveTo(x + radius, y);
+
+    ctx.arcTo(
+      x + width,
+      y,
+      x + width,
+      y + height,
+      radius
+    );
+
+    ctx.arcTo(
+      x + width,
+      y + height,
+      x,
+      y + height,
+      radius
+    );
+
+    ctx.arcTo(
+      x,
+      y + height,
+      x,
+      y,
+      radius
+    );
+
+    ctx.arcTo(
+      x,
+      y,
+      x + width,
+      y,
+      radius
+    );
+
+    ctx.closePath();
+  }
+
+  const observer = new MutationObserver(() => {
+    setTimeout(renderCard, 250);
+  });
+
+  window.addEventListener('DOMContentLoaded', () => {
+    const result = $('#result');
+
+    if (result) {
+      observer.observe(result, {
+        attributes: true,
+        attributeFilter: ['class'],
+        subtree: true,
+        childList: true
+      });
+    }
+
+    setTimeout(renderCard, 500);
+  });
+})();
