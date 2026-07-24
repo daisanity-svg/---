@@ -1,0 +1,11 @@
+{
+  "name": "猛健樂旅程",
+  "short_name": "猛健樂旅程",
+  "description": "每日記錄體重、體脂肪率與內臟脂肪。",
+  "lang": "zh-Hant",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#eee9df",
+  "theme_color": "#eee9df"
+}
